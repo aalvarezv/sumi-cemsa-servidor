@@ -1,7 +1,15 @@
 const {Formulario_sertec, Artefacto, Modelo} = require('../config/db');
 const { Sequelize, Op } = require('sequelize');
+//llama el resultado de la validación
+const { validationResult } = require('express-validator');
 
 exports.crearFormulario = async(req, res) => {
+
+    //si hay errores de la validación
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
 
     try {
 
